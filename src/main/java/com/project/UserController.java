@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -34,6 +36,7 @@ public class UserController {
 		
 	}
 	
+	@CrossOrigin(origins = "*")
 	@DeleteMapping("/user/{id}")
 	public boolean deleteUser(@PathVariable Integer id){
 		userRepository.deleteById(id);
@@ -41,12 +44,15 @@ public class UserController {
 		
 	}
 	
+	@CrossOrigin(origins = "*")
 	@PostMapping("/user")
-	public User createUser(User user){
-		return userRepository.save(user);
+	public User createUser(@RequestBody User user){
+		User _user = userRepository.save(new User(user.getId(),user.getUserName(),user.getUserPassword()));
+		return _user;
 		
 	}
 	
+	@CrossOrigin(origins = "*")
 	@PutMapping("/user")
 	public User updateUser(User user) {
 		return userRepository.save(user);

@@ -13,9 +13,5 @@ public class CurdBackendApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(CurdBackendApplication.class, args);
 	}
-	
-	public void run(String... args) throws Exception{
-		userRepository.save(new User(5,"Diana","parolahaioasa"));
-	}
 
 }
