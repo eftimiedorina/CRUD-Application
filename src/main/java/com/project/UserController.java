@@ -1,6 +1,8 @@
 package com.project;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -53,9 +55,19 @@ public class UserController {
 	}
 	
 	@CrossOrigin(origins = "*")
-	@PutMapping("/user")
-	public User updateUser(User user) {
-		return userRepository.save(user);
+	@PutMapping("/user/{id}")
+	public User updateUser(@PathVariable Integer id,@RequestBody User user) {
+		
+		Optional<User> userData = userRepository.findById(id);
+	
+//		if(userData.isPresent()) {
+			User _user = userData.get();
+			_user.setUserName(user.getUserName());
+			_user.setUserPassword(user.getUserPassword());
+			
+		 
+		return userRepository.save(_user);
+		//return userRepository.save(user);
 	}
 	
 
